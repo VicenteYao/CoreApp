@@ -8,19 +8,26 @@ typedef struct _DateTime{
     unsigned MilliSecond;
 }DateTime;
 
+typedef struct _TimeStamp {
+	DWORD dwLowDateTime;
+	DWORD dwHighDateTime;
+} TimeStamp;
+
 typedef enum DateTimeCompareResult{
     DateTimeCompareResult_Equals;
     DateTimeCompareResult_Before;
     DateTimeCompareResult_After;
 };
 
-struct DateTime TimeStampToDateTime(long timeStamp);
+struct DateTime TimeStampToDateTime(struct TimeStamp timeStamp);
 
-long DateTimeToTimeStamp(DateTime datetime);
+struct TimeStamp DateTimeToTimeStamp(struct DateTime datetime);
 
-void DateTimeToString(DateTime datetime,char* format,struct String* pOutString);
+void DateTimeToString(DateTime datetime, char* format, struct String* pOutString);
 
 struct DateTime Today();
+
+struct DateTime Now();
 
 struct DateTime AddYears(struct DateTime dateTime,double years);
 
@@ -34,6 +41,6 @@ struct DateTime AddMinutes(struct DateTime dateTime,double minutes);
 
 struct DateTime AddSeconds(struct DateTime dateTime,double seconds);
 
-enum DateTimeCompareResult Compare(struct DateTime datetime1,struct DateTime datetime2);
+enum DateTimeCompareResult CompareDateTime(struct DateTime datetime1,struct DateTime datetime2);
 
 

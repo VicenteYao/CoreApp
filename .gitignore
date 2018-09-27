@@ -50,3 +50,10 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
+*.sqlite-journal
+*.sqlite
+*.json
+*.opendb
+*.db
+*.ipch
+.vs/CoreApp/v15/.suo

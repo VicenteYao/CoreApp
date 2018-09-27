@@ -1,4 +1,4 @@
-
+#include "DateTime"
 #include "../String.h"
 #include "../Array.h"
 
@@ -19,6 +19,10 @@ typedef struct _Thread {
     unsigned StackLimitLow,
     unsigned StackLimitHigh,
     unsigned SleepTime;
+	struct TimeStamp CreateTime;
+	struct TimeStamp ExitTime;
+	struct TimeStamp KernelTime;
+	struct TimeStamp UserTime;
 }Thread;
 
 typedef struct _ThreadContext{
@@ -50,9 +54,9 @@ void TlsSetValue(unsigned tlsIndex,void* pValue);
 
 void* TlsGetValue(unsigned tlsIndex);
 
-void Sleep(unsigned ms);
+void Sleep(unsigned milliSeconds);
 
-unsigned  CreateThread(unsigned stackSize,ThreadProc threadProc,void* lParam);
+unsigned  CreateThread(unsigned stackSize, ThreadProc threadProc, void* lParam);
 
 void SetThreadName(unsigned threadId,const char* pThreadName);
 
@@ -71,6 +75,12 @@ void ExitThread(int exitCode);
 void TerminalThread(unsigned threadId);
 
 void YieldThread();
+
+bool GetThreadTimes(unsigned threadId,
+	const struct TimeStamp* pCreateTime,
+	const struct TimeStamp* pExitTime,
+	const struct TimeStamp* pKernelTime,
+	const struct TimeStamp* pUserTime);
 
 
 
