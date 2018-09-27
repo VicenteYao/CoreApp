@@ -1,20 +1,21 @@
 #include "DateTime"
 #include "../String.h"
 #include "../Array.h"
+#include "../Objects/Object.h"
 
 typedef enum _ThreadPriority {
-    ThreadPriority_Highest;
-    ThreadPriority_High;
-    ThreadPriority_Normal;
-    ThreadPriority_Low;
-    ThreadPriority_Lowest;
+    ThreadPriority_Highest,
+    ThreadPriority_High,
+    ThreadPriority_Normal,
+    ThreadPriority_Low,
+    ThreadPriority_Lowest,
 }ThreadPriority;
 
-typedef struct _Thread {
+typedef struct _ThreadInfomation {
 	unsigned ID;
     enum ThreadPriority ThreadPriority;
     char ThreadName[64];
-    void* ThreadLocalStorages;
+	void* ThreadLocalStorages[64];
     unsigned ThreadLocalStoragesCount;
     unsigned StackLimitLow,
     unsigned StackLimitHigh,
@@ -23,7 +24,7 @@ typedef struct _Thread {
 	struct TimeStamp ExitTime;
 	struct TimeStamp KernelTime;
 	struct TimeStamp UserTime;
-}Thread;
+}ThreadInfomation;
 
 typedef struct _ThreadContext{
     
@@ -36,47 +37,47 @@ typedef  int (*ThreadProc)(void* lParam);
 
 unsigned GetCurrentThreadId();
 
-struct Thread* GetCurrentThread();
+Handle GetCurrentThread();
 
 unsigned GetThreads(const struct Array* pOutIdOfThreads);
 
-struct Thread* GetThreadOfId(unsigned threadId);
+struct Handle GetThreadOfId(unsigned threadId);
 
-void SetThreadPriority(unsigned threadId,enum ThreadPriority threadPriority);
+void SetThreadPriority(Handle hThread,enum ThreadPriority threadPriority);
 
-enum ThreadPriority GetThreadPriority(unsigned threadId);
+enum ThreadPriority GetThreadPriority(Handle hThread);
 
 unsigned TlsAlloc();
 
 void TlsFree(unsigned tlsIndex);
 
-void TlsSetValue(unsigned tlsIndex,void* pValue);
+void TlsSetValue(unsigned tlsIndex, void* pValue);
 
 void* TlsGetValue(unsigned tlsIndex);
 
 void Sleep(unsigned milliSeconds);
 
-unsigned  CreateThread(unsigned stackSize, ThreadProc threadProc, void* lParam);
+Handle  CreateThread(unsigned stackSize, ThreadProc threadProc, void* lParam, const unsigned* pOutThreadId);
 
-void SetThreadName(unsigned threadId,const char* pThreadName);
+void SetThreadName(Handle hThread,const char* pThreadName);
 
-char* GetThreadName(unsigned threadId);
+char* GetThreadName(Handle hThread);
 
-bool GetThreadContext(unsigned threadId,const ThreadContext* pOutThreadContext);
+bool GetThreadContext(Handle hThread,const ThreadContext* pOutThreadContext);
 
-bool SetThreadContext(unsigned threadId,const ThreadContext* pInThreadContext);
+bool SetThreadContext(Handle hThread,const ThreadContext* pInThreadContext);
 
-int SuspendThread(unsigned threadId);
+int SuspendThread(Handle hThread);
 
-int ResumeThread(unsigned threadId);
+int ResumeThread(Handle hThread);
 
 void ExitThread(int exitCode);
 
-void TerminalThread(unsigned threadId);
+void TerminalThread(Handle hThread);
 
 void YieldThread();
 
-bool GetThreadTimes(unsigned threadId,
+bool GetThreadTimes(Handle hThread,
 	const struct TimeStamp* pCreateTime,
 	const struct TimeStamp* pExitTime,
 	const struct TimeStamp* pKernelTime,

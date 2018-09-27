@@ -14,9 +14,9 @@ typedef struct _TimeStamp {
 } TimeStamp;
 
 typedef enum DateTimeCompareResult{
-    DateTimeCompareResult_Equals;
-    DateTimeCompareResult_Before;
-    DateTimeCompareResult_After;
+    DateTimeCompareResult_Equals,
+    DateTimeCompareResult_Before,
+    DateTimeCompareResult_After,
 };
 
 struct DateTime TimeStampToDateTime(struct TimeStamp timeStamp);

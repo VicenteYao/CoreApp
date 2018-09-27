@@ -5,17 +5,17 @@ typedef struct _Array
 	void* Value[0];
 }Array;
 
-void* Array_GetElement(struct Array * pArray);
+void* GetArrayElement(struct Array * pArray);
 
-void Array_SetElement(struct Array * pArray, unsigned index, void* pValue);
+void SetArrayElement(struct Array * pArray, unsigned index, void* pValue);
 
-unsigned Array_GetLength(struct Array * pArray);
+unsigned GetArrayLength(struct Array * pArray);
 
-void Array_Copy(struct Array* pSrc, unsigned srcOffset, struct Array* pDest, unsigned destOffset, unsigned count);
+void CopyArray(struct Array* pSrc, unsigned srcOffset, struct Array* pDest, unsigned destOffset, unsigned count);
 
-struct Array* Array_Alloc(unsigned elementSize, unsigned arrayLength);
+struct Array* AllocArray(unsigned elementSize, unsigned arrayLength);
 
-void Array_Dealloc(struct Array* pArray);
+void DeallocArray(struct Array* pArray);
 
-struct Array* Array_Realloc(struct Array* pArray, unsigned newSize);
+struct Array* ReallocArray(struct Array* pArray, unsigned newSize);
 
