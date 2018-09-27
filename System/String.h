@@ -3,16 +3,16 @@ typedef struct _String {
 	char Characters[0];
 }String;
 
-struct String* String_Alloc(char* pCharacters);
+struct String* AllocString(char* pCharacters);
 
-void String_Dealloc(struct String* pString);
+void DeallocString(struct String* pString);
 
-struct String* String_Append(struct String* pString1, struct String* pString2);
+struct String* AppendString(struct String* pString1, struct String* pString2);
 
-bool String_Compare(struct String* pString1, struct String* pString2);
+bool CompareString(struct String* pString1, struct String* pString2);
 
-unsigned String_GetLength(struct String* pString1);
+unsigned GetStringLength(struct String* pString1);
 
-char String_GetCharAt(struct String* pString1, unsigned index);
+char GetCharAt(struct String* pString1, unsigned index);
 
-void String_SetCharAt(struct String* pString1, unsigned index, char value);
+void SetCharAt(struct String* pString1, unsigned index, char value);
